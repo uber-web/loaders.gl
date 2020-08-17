@@ -28,13 +28,16 @@ import coreBench from '@loaders.gl/core/test/core.bench';
 import csvBench from '@loaders.gl/csv/test/csv.bench';
 import jsonBench from '@loaders.gl/json/test/json-loader.bench';
 // import dracoBench from '@loaders.gl/draco/test/draco.bench';
+import shapefileBench from '@loaders.gl/shapefile/test/shapefile.bench';
 
 import cryptoBench from '@loaders.gl/crypto/test/crypto.bench';
 
 _addAliases(ALIASES);
 
 export async function addModuleBenchmarksToSuite(suite) {
-  // add tests
+  // add benchmarks
+  await shapefileBench(suite);
+
   await imageBench(suite);
   await cryptoBench(suite);
 

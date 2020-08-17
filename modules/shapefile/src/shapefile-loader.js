@@ -50,7 +50,7 @@ async function parseShapefile(arrayBuffer, options, context) {
   const {shx, cpg, prj} = await loadShapefileSidecarFiles(options, context);
 
   // parse geometries
-  const {header, geometries} = await parse(arrayBuffer, SHPLoader); // , {shp: shx});
+  const {header, geometries} = await parse(arrayBuffer, SHPLoader, {worker: false}); // , {shp: shx});
 
   // Convert binary geometries to GeoJSON
   const geojsonGeometries = [];
