@@ -27,6 +27,7 @@
   ],
   "browser": {
     "child_process": false,
+    "worker_threads": false,
     "./src/lib/node/require-utils.node.js": false,
     "./dist/es5/lib/node/require-utils.node.js": false,
     "./dist/esm/lib/node/require-utils.node.js": false,

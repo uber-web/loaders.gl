@@ -1,6 +1,8 @@
 /* global Worker */
+import {isBrowser} from '../env-utils/globals';
 import {getWorkerURL} from './get-worker-url';
 import {getTransferList} from './get-transfer-list';
+import {Worker as NodeWorker} from 'worker_threads';
 
 let count = 0;
 
@@ -9,7 +11,7 @@ const DEFAULT_ON_MESSAGE = ({data, resolve}) => resolve(data);
 
 export default class WorkerThread {
   static isSupported() {
-    return typeof Worker !== 'undefined';
+    return typeof Worker !== 'undefined' || Boolean(NodeWorker);
   }
 
   constructor({source, name = `web-worker-${count++}`, onMessage}) {
@@ -20,7 +22,9 @@ export default class WorkerThread {
     this.resolve = _ => {};
     this.reject = _ => {};
 
-    this.worker = this._createBrowserWorker(source, name);
+    this.worker = isBrowser
+      ? this._createBrowserWorker(source, name)
+      : this._createNodeWorker(source, name);
   }
 
   destroy() {
@@ -74,6 +78,24 @@ export default class WorkerThread {
 
     worker.onmessage = event => this._onMessage(event.data);
     worker.onerror = error => this._onError(error);
+
+    return worker;
+  }
+
+  /**
+   *
+   * @param {*} source
+   * @param {*} name
+   * @todo https://nodejs.org/api/async_hooks.html#async-resource-worker-pool
+   */
+  _createNodeWorker(source, name) {
+    this.url = `./${getWorkerURL(source)}`;
+    const worker = new NodeWorker(this.url, {
+      eval: false // We have already converted to URL
+    });
+    worker.on('message', data => this._onMessage(data));
+    worker.on('error', error => this._onError(error));
+    // worker.on('exit', code => {});
 
     return worker;
   }
