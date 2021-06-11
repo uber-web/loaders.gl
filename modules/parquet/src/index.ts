@@ -1,3 +1,5 @@
+export {preloadCompressions} from './parquetjs/compression';
+
 export {ParquetReader, ParquetEnvelopeReader} from './parquetjs/reader';
 export {ParquetWriter, ParquetEnvelopeWriter, ParquetTransformer} from './parquetjs/writer';
 export {ParquetSchema} from './parquetjs/schema/schema';
