@@ -1,4 +1,5 @@
 // Types
+export {DataFormatGIS} from './types';
 export {BinaryGeometryData, BinaryAttribute} from './types';
 
 // Functions

@@ -16,6 +16,17 @@ type NumericProps = {[key: string]: BinaryAttribute};
 type Properties = object[];
 
 /**
+ * Types for
+ */
+export type DataFormatGIS = {
+  category: 'gis';
+  schema: object; /** `Schema` - Apache Arrow style schema  */
+  data: object /** Data is formatted according to `options.gis.format` */
+  format: string; /** The encoding of `data` layers, corresponds to `options.gis.format`. */
+  loaderMetadata: object; /** Loader specific metadata, see documentation for each loader */
+}
+
+/**
  * Represent a single Geometry, similar to a GeoJSON Geometry
  */
 export type BinaryGeometryData = {
