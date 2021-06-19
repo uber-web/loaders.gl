@@ -1,10 +1,17 @@
-import Tar from './lib/tar/tar';
+import Tar from './tar';
 
+export type TAR_BUILDER_OPTIONS = {
+  recordsPerBlock: number;
+};
 const TAR_BUILDER_OPTIONS = {
   recordsPerBlock: 20
 };
 
 export default class TARBuilder {
+  options: TAR_BUILDER_OPTIONS;
+  tape: Tar;
+  count: number;
+
   static get properties() {
     return {
       id: 'tar',
@@ -17,27 +24,24 @@ export default class TARBuilder {
   }
 
   /**
-   * @param {Partial<typeof TAR_BUILDER_OPTIONS>} options
+   * @param options
    */
-  constructor(options) {
+  constructor(options?: Partial<TAR_BUILDER_OPTIONS>) {
     this.options = {...TAR_BUILDER_OPTIONS, ...options};
     this.tape = new Tar(this.options.recordsPerBlock);
     this.count = 0;
   }
 
   /**
-   * @param {ArrayBuffer} buffer
-   * @param {string} filename
+   * @param filename
+   * @param buffer
    */
-  addFile(buffer, filename) {
+  addFile(filename: any, buffer: ArrayBuffer): void {
     this.tape.append(filename, new Uint8Array(buffer));
     this.count++;
   }
 
-  /**
-   * @returns {Promise<ArrayBuffer>}
-   */
-  async build() {
+  async build(): Promise<ArrayBuffer> {
     return new Response(this.tape.save()).arrayBuffer();
   }
 }

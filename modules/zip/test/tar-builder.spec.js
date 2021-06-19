@@ -1,7 +1,7 @@
 import test from 'tape-promise/tape';
 import {validateBuilder} from 'test/common/conformance';
 
-import {TarBuilder} from '@loaders.gl/zip';
+import TarBuilder from '../src/lib/tar/tar-builder';
 import {isBrowser} from '@loaders.gl/core';
 
 import {IMAGE_DATA_ARRAY} from './lib/test-cases';

@@ -1,11 +1,11 @@
-/** @typedef {import('@loaders.gl/loader-utils').WriterObject} WriterObject */
+import {ZIPWriter} from './lib/tar/types';
 import JSZip from 'jszip';
 
 /**
  * Zip exporter
- * @type {WriterObject}
  */
-export const ZipWriter = {
+
+export const ZipWriter: ZIPWriter = {
   name: 'Zip Archive',
   extensions: ['zip'],
   category: 'archive',
@@ -14,7 +14,7 @@ export const ZipWriter = {
   encode: encodeZipAsync
 };
 
-function encodeZipAsync(fileMap, options) {
+function encodeZipAsync(fileMap: any, options: any = {}): Promise<any> {
   const jsZip = new JSZip();
   // add files to the zip
   for (const subFileName in fileMap) {
