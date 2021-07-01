@@ -1,6 +1,6 @@
 import {resolvePath} from '@loaders.gl/loader-utils';
 import {makeResponse} from '../utils/response-utils';
-import {getErrorMessageFromResponse} from './fetch-error-message';
+// import {getErrorMessageFromResponse} from './fetch-error-message';
 
 /**
  * fetch compatible function
@@ -23,7 +23,7 @@ export async function fetchFile(
       fetchOptions = options.fetch;
     }
 
-    const response = await fetch(url as string, fetchOptions);
+    const response = await fetch(url, fetchOptions);
 
     return response;
   }

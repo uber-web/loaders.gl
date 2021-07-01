@@ -33,6 +33,7 @@ const config = deepMerge(defaultConfig, {
           'warn',
           {vars: 'all', args: 'none', ignoreRestSiblings: false}
         ],
+        'radix': 0,
         // We still have some issues with import resolution
         'import/named': 0,
         'import/no-extraneous-dependencies': ['warn'],
